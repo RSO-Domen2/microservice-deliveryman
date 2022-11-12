@@ -4,14 +4,13 @@
         <non-jta-data-source>jdbc/DeliverymanMetadataDS</non-jta-data-source>
 
         <class>si.fri.rso.domen2.deliveryman.models.entities.DeliverymanMetadataEntity</class>
-        <class>si.fri.rso.domen2.deliveryman.models.converters.InstantAtributeConverter</class>
+        <class>si.fri.rso.domen2.deliveryman.models.converters.InstantAttributeConverter</class>
 
         <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> <!-- ob zagonu se baza pobriše -->
-            <property name="javax.persistence.schema-generation.create-source" value="metadata"/> <!-- jpa datoteke -->
-            <property name="javax.persistence.sql-load-script-source"
-                      value="sql-scripts/init.sql" /> <!-- ob zagonu ta datoteka zafila bazo nazaj -->
-            <property name="javax.persistence.schema-generation.drop-source" value="metadata"/> <!-- pri generiranju izbriše metapodatke -->
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
+            <property name="javax.persistence.sql-load-script-source" value="sql-scripts/init.sql"/>
+            <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
         </properties>
     </persistence-unit>
 </persistence>

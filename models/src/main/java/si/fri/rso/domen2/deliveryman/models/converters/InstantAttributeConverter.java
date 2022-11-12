@@ -7,8 +7,8 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter(autoApply = true)
-public class InstantAttributeConverter implements AttributeConverter<Instant, Timestamp>  {
-    
+public class InstantAttributeConverter implements AttributeConverter<Instant, Timestamp> {
+
     @Override
     public Timestamp convertToDatabaseColumn(Instant instant) {
         return (instant == null ? null : Timestamp.from(instant));
@@ -19,3 +19,4 @@ public class InstantAttributeConverter implements AttributeConverter<Instant, Ti
         return (timestamp == null ? null : timestamp.toInstant());
     }
 }
+

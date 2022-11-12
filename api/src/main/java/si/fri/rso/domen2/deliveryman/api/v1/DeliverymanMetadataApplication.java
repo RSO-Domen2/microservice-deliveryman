@@ -18,5 +18,5 @@ import org.eclipse.microprofile.openapi.annotations.servers.Server;
     servers = @Server(url = "http://localhost:8080/"))
 @ApplicationPath("/v1")
 public class DeliverymanMetadataApplication extends Application {
-    
+
 }

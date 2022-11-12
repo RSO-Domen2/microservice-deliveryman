@@ -1,8 +1,8 @@
-INSERT INTO deliveryman_metadata (name, surname, vehicle, created)
+INSERT INTO deliveryman_metadata (name, surname, vehicle, lat, lng, created)
 VALUES
-    ('Janez', 'Novak', 'car', CURRENT_TIMESTAMP),
-    ('Janez', 'Novak', 'car', CURRENT_TIMESTAMP),
-    ('Janez', 'Novak', 'bicycle', TIMESTAMP '2002-03-03 12:00:00'),
-    ('Janez', 'Novak', 'bicycle', TIMESTAMP '2003-04-04 12:00:00'),
-    ('Janez', 'Novak', 'none', TO_TIMESTAMP('2002-05-05 12:00:00', 'YYYY-MM-DD HH24:MI:SS')),
-    ('Janez', 'Novak', 'none', TO_TIMESTAMP('2002-06-06 12:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+    ('Janez', 'Novak', 'car', 10, 20, TIMESTAMP '2001-01-01 12:00:00'),
+    ('Janez', 'Novak', 'car', 10, 20, TIMESTAMP '2002-02-02 12:00:00'),
+    ('Janez', 'Novak', 'bicycle', 10, 20, TIMESTAMP '2003-03-03 12:00:00'),
+    ('Janez', 'Novak', 'bicycle', 10, 20, TIMESTAMP '2004-04-04 12:00:00'),
+    ('Janez', 'Novak', 'none', 10, 20, TIMESTAMP '2005-05-05 12:00:00'),
+    ('Janez', 'Novak', 'none', 10, 20, TIMESTAMP '2006-06-06 12:00:00');

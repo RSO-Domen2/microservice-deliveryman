@@ -10,7 +10,7 @@ public class DeliverymanMetadata {
     private String vehicle;
     private Double lat;
     private Double lng;
-    private Instant created;
+    /* private Instant created; */
 
     public Integer getId() {
         return this.id;
@@ -54,10 +54,17 @@ public class DeliverymanMetadata {
         this.lng = lng;
     }
 
-    public Instant getCreated() {
+    /* public Instant getCreated() {
         return this.created;
     }
     public void setCreated(Instant created) {
         this.created = created;
+    } */
+
+    /* PROBLEM: part of output */
+    public boolean isValid() {
+        return (this.name != null && this.surname != null && this.vehicle != null
+        && (this.vehicle.equals("car") || this.vehicle.equals("bicycle") || this.vehicle.equals("none"))
+        && this.lat != null && this.lng != null);
     }
 }

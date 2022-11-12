@@ -55,7 +55,7 @@ public class DeliverymanMetadataResource {
         )})
     @GET
     public Response getDeliverymanMetadata() {
-
+        //List<DeliverymanMetadata> listDm = dmb.getDeliverymanMetadataFilter(uriInfo);
         List<DeliverymanMetadata> listDm = dmb.getDeliverymanMetadata();
         return Response.status(Response.Status.OK).entity(listDm).build();
     }
@@ -89,12 +89,14 @@ public class DeliverymanMetadataResource {
     })
     @POST
     public Response createDeliverymanMetadata(
-        @RequestBody(description = "DTO object with image metadata.",
-            required = true, content = @Content(
-            schema = @Schema(implementation = DeliverymanMetadata.class)))
+        @RequestBody(description = "DTO object with deliveryman metadata.",
+            required = true,
+            content = @Content(schema = @Schema(implementation = DeliverymanMetadata.class)))
         DeliverymanMetadata dm) {
 
-        if((dm.getName() == null || dm.getSurname() == null || dm.getVehicle() == null)) {
+        // this.log.info("createDeliverymanMetadata");
+
+        if(!dm.isValid()) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         else {

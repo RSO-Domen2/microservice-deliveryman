@@ -43,7 +43,8 @@ public class DeliverymanMetadataBean {
     public DeliverymanMetadata getDeliveryMetadata(Integer id) {
         DeliverymanMetadataEntity dme = em.find(DeliverymanMetadataEntity.class, id);
         if(dme == null) {
-            throw new NotFoundException();
+            // throw new NotFoundException();
+            return null;
         }
         DeliverymanMetadata dm = DeliverymanMetadataConverter.toDto(dme);
         return dm;

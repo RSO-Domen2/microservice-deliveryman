@@ -23,6 +23,24 @@ public class DeliverymanMetadataEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "vehicle")
+    private String vehicle;
+
+    @Column(name = "lat")
+    private Double lat;
+
+    @Column(name = "lng")
+    private Double lng;
+
+    @Column(name = "created")
+    private Instant created;
+
     public Integer getId() {
         return this.id;
     }
@@ -30,9 +48,6 @@ public class DeliverymanMetadataEntity {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    @Column(name = "name")
-    private String name;
 
     public String getName() {
         return this.name;
@@ -42,9 +57,6 @@ public class DeliverymanMetadataEntity {
         this.name = name;
     }
 
-    @Column(name = "surname")
-    private String surname;
-
     public String getSurname() {
         return this.surname;
     }
@@ -53,22 +65,12 @@ public class DeliverymanMetadataEntity {
         this.surname = surname;
     }
 
-    @Column(name = "vehicle")
-    private String vehicle;
-
     public String getVehicle() {
         return this.vehicle;
     }
     public void setVehicle(String vehicle) {
-        // is check here?
-        /* if(vehicle.equals("car") || vehicle.equals("bicycle") || vehicle.equals("none")) {
-            
-        } */
         this.vehicle = vehicle;
     }
-
-    @Column(name = "lat")
-    private Double lat;
 
     public Double getLat() {
         return this.lat;
@@ -78,9 +80,6 @@ public class DeliverymanMetadataEntity {
         this.lat = lat;
     }
 
-    @Column(name = "lng")
-    private Double lng;
-
     public Double getLng() {
         return this.lng;
     }
@@ -89,13 +88,11 @@ public class DeliverymanMetadataEntity {
         this.lng = lng;
     }
 
-    /* @Column(name = "created")
-    private Instant created;
-
     public Instant getCreated() {
         return this.created;
     }
+
     public void setCreated(Instant created) {
         this.created = created;
-    } */
+    }
 }
