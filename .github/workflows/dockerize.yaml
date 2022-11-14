@@ -1,10 +1,10 @@
 name: Build, package, and push
 
-on: workflow_dispatch
-  #push:
-  #  branches: [main]
-  #pull_request:
-  #  branches: [main]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
@@ -12,19 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get current time
-        id: current-time
-        uses: josStorer/get-current-time@v2.0.2
-        with:
-          format: YYYY-MM-DD-HH-mm-ss
-          utcOffset: "+02:00"
-
       - name: Extract version
         id: version
         uses: mavrosxristoforos/get-xml-info@1.1.1
         with:
           xml-file: "pom.xml"
-          xpath: "/*[namespace-uri()='http://maven.apache.org/POM/4.0.0' and local-name()='project']/*[namespace-uri()='http://maven.apache.org/POM/4.0.0' and local-name()='version']/text()"
+          xpath: "//*[local-name()='project']/*[local-name()='version']"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
