@@ -14,7 +14,7 @@ spec:
         app: deliveryman
     spec:
       containers:
-        - image: dmohorcic/microservice-deliveryman:2022-11-12-13-03-33
+        - image: dmohorcic/microservice-deliveryman:1.0.0-SNAPSHOT
           name: deliveryman
           env:
               # from api/resources/config.yaml
