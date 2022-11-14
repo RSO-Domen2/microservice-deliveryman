@@ -37,7 +37,7 @@ import si.fri.rso.domen2.deliveryman.lib.DeliverymanMetadata;
 @Consumes(MediaType.APPLICATION_JSON)
 public class DeliverymanMetadataResource {
     
-    private Logger log = Logger.getLogger(DeliverymanMetadataResource.class.getName());
+    private final Logger LOG = Logger.getLogger(DeliverymanMetadataResource.class.getName());
 
     @Inject
     private DeliverymanMetadataBean dmb;
@@ -94,7 +94,7 @@ public class DeliverymanMetadataResource {
             content = @Content(schema = @Schema(implementation = DeliverymanMetadata.class)))
         DeliverymanMetadata dm) {
 
-        // this.log.info("createDeliverymanMetadata");
+        // this.LOG.info("createDeliverymanMetadata");
 
         if(!dm.isValid()) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();

@@ -13,7 +13,7 @@ public class DeliverymanMetadataConverter {
         dto.setVehicle(entity.getVehicle());
         dto.setLat(entity.getLat());
         dto.setLng(entity.getLng());
-        /* dto.setCreated(entity.getCreated()); */
+        dto.setCreated(entity.getCreated());
         return dto;
     }
     
@@ -25,7 +25,7 @@ public class DeliverymanMetadataConverter {
         entity.setVehicle(dto.getVehicle());
         entity.setLat(dto.getLat());
         entity.setLng(dto.getLng());
-        /* entity.setCreated(dto.getCreated()); */
+        entity.setCreated(dto.getCreated());
         return entity;
     }
 }

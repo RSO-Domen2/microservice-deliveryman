@@ -1,8 +1,0 @@
-INSERT INTO deliveryman_metadata (name, surname, vehicle, lat, lng, created)
-VALUES
-    ('Janez', 'Novak', 'car', 10, 20, TIMESTAMP '2001-01-01 12:00:00'),
-    ('Janez', 'Novak', 'car', 10, 20, TIMESTAMP '2002-02-02 12:00:00'),
-    ('Janez', 'Novak', 'bicycle', 10, 20, TIMESTAMP '2003-03-03 12:00:00'),
-    ('Janez', 'Novak', 'bicycle', 10, 20, TIMESTAMP '2004-04-04 12:00:00'),
-    ('Janez', 'Novak', 'none', 10, 20, TIMESTAMP '2005-05-05 12:00:00'),
-    ('Janez', 'Novak', 'none', 10, 20, TIMESTAMP '2006-06-06 12:00:00');

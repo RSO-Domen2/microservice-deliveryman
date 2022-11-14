@@ -14,20 +14,20 @@ spec:
         app: deliveryman
     spec:
       containers:
-        - image: prporso/image-catalog:2022-10-27-17-33-13 # change to my own from Dockerhub
+        - image: dmohorcic/microservice-deliveryman:2022-11-12-13-03-33
           name: deliveryman
           env:
               # from api/resources/config.yaml
               # kumuluzee -> datasources -> 0th element -> connection-url
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://fanny.db.elephantsql.com:5432/zqjqqtrd # overwrite value
+              value: jdbc:postgresql://mouse.db.elephantsql.com:5432/lyjcsikn
             - name: KUMULUZEE_DATASOURCES0_USERNAME
-              value: zqjqqtrd
+              value: lyjcsikn
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: pg-pass
-                  key: KUMULUZEE_DATASOURCES0_PASSWORD
+                  name: deliveryman-elephantsql
+                  key: password
           ports:
             - containerPort: 8080
               name: server
