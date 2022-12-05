@@ -20,9 +20,15 @@ spec:
               # from api/resources/config.yaml
               # kumuluzee -> datasources -> 0th element -> connection-url
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://mouse.db.elephantsql.com:5432/lyjcsikn
+              valueFrom:
+                secretKeyRef:
+                  name: deliveryman-elephantsql
+                  key: connection-url
             - name: KUMULUZEE_DATASOURCES0_USERNAME
-              value: lyjcsikn
+              valueFrom:
+                secretKeyRef:
+                  name: deliveryman-elephantsql
+                  key: username
             - name: KUMULUZEE_DATASOURCES0_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -32,6 +38,18 @@ spec:
             - containerPort: 8080
               name: server
               protocol: TCP
+          #livenessProbe:
+          #  httpGet:
+          #    path: /health/live
+          #    port: server
+          #  initialDelaySeconds: 20
+          #  periodSeconds: 3
+          #readynessProbe:
+          #  httpGet:
+          #    path: /health/ready
+          #    port: server
+          #  initialDelaySeconds: 20
+          #  periodSeconds: 3
 
 ---
 
@@ -46,6 +64,7 @@ spec:
   # LoadPort
   type: LoadBalancer
   ports:
+      # this is outside port, we map server:port (server is in Deployment)
     - port: 8080
       protocol: TCP
       targetPort: server

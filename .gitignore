@@ -162,4 +162,4 @@ $RECYCLE.BIN/
 .idea/
 .vscode/
 
-kustomization.yaml
+k8s/secrets.yaml

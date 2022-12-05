@@ -13,6 +13,7 @@ import javax.ws.rs.core.UriInfo;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import com.kumuluz.ee.rest.utils.QueryStringDefaults;
 
 import si.fri.rso.domen2.deliveryman.lib.DeliverymanMetadata;
 import si.fri.rso.domen2.deliveryman.models.entities.DeliverymanMetadataEntity;
@@ -21,7 +22,7 @@ import si.fri.rso.domen2.deliveryman.models.converters.DeliverymanMetadataConver
 @RequestScoped
 public class DeliverymanMetadataBean {
     
-    private Logger log = Logger.getLogger(DeliverymanMetadataBean.class.getName());
+    private Logger LOG = Logger.getLogger(DeliverymanMetadataBean.class.getName());
 
     @Inject
     private EntityManager em;

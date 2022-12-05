@@ -55,8 +55,9 @@ public class DeliverymanMetadataResource {
         )})
     @GET
     public Response getDeliverymanMetadata() {
-        //List<DeliverymanMetadata> listDm = dmb.getDeliverymanMetadataFilter(uriInfo);
-        List<DeliverymanMetadata> listDm = dmb.getDeliverymanMetadata();
+        LOG.info(uriInfo.getRequestUri().getQuery());
+        List<DeliverymanMetadata> listDm = dmb.getDeliverymanMetadataFilter(uriInfo);
+        // List<DeliverymanMetadata> listDm = dmb.getDeliverymanMetadata();
         return Response.status(Response.Status.OK).entity(listDm).build();
     }
 
