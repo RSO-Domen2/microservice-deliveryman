@@ -30,6 +30,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
 import si.fri.rso.domen2.deliveryman.services.beans.DeliverymanMetadataBean;
 import si.fri.rso.domen2.deliveryman.lib.DeliverymanMetadata;
+import si.fri.rso.domen2.deliveryman.lib.DeliverymanMetadataValidator;
 
 @ApplicationScoped
 @Path("/deliveryman")
@@ -97,7 +98,7 @@ public class DeliverymanMetadataResource {
 
         // this.LOG.info("createDeliverymanMetadata");
 
-        if(!dm.isValid()) {
+        if(!DeliverymanMetadataValidator.isValid(dm)) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         else {

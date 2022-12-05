@@ -38,6 +38,12 @@ public class DeliverymanMetadataEntity {
     @Column(name = "lng")
     private Double lng;
 
+    @Column(name = "hourlyPay")
+    private Double hourlyPay;
+
+    @Column(name = "transportPrice")
+    private Double transportPrice;
+    
     @Column(name = "created")
     private Instant created;
 
@@ -86,6 +92,20 @@ public class DeliverymanMetadataEntity {
 
     public void setLng(Double lng) {
         this.lng = lng;
+    }
+
+    public Double getHourlyPay() {
+        return hourlyPay;
+    }
+    public void setHourlyPay(Double hourlyPay) {
+        this.hourlyPay = hourlyPay;
+    }
+
+    public Double getTransportPrice() {
+        return transportPrice;
+    }
+    public void setTransportPrice(Double transportPrice) {
+        this.transportPrice = transportPrice;
     }
 
     public Instant getCreated() {

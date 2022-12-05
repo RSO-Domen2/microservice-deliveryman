@@ -15,12 +15,12 @@ import javax.ws.rs.Produces;
 import si.fri.rso.domen2.deliveryman.services.config.RestProperties;
 
 @ApplicationScoped
-@Path("/demo")
+@Path("/manual")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class DemoResource {
+public class ManualBreakResource {
     
-    private final Logger LOG = Logger.getLogger(DemoResource.class.getName());
+    private final Logger LOG = Logger.getLogger(ManualBreakResource.class.getName());
 
     @Inject
     private RestProperties rp;

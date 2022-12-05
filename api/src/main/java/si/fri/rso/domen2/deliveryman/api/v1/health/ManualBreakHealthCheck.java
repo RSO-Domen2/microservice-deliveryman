@@ -11,7 +11,7 @@ import si.fri.rso.domen2.deliveryman.services.config.RestProperties;
 
 @Liveness
 @ApplicationScoped
-public class CustomHealthCheck implements HealthCheck {
+public class ManualBreakHealthCheck implements HealthCheck {
 
     @Inject
     private RestProperties rp;
@@ -19,10 +19,10 @@ public class CustomHealthCheck implements HealthCheck {
     @Override
     public HealthCheckResponse call() {
         if(rp.getBroken()) {
-            return HealthCheckResponse.down(CustomHealthCheck.class.getSimpleName());
+            return HealthCheckResponse.down(ManualBreakHealthCheck.class.getSimpleName());
         }
         else {
-            return HealthCheckResponse.up(CustomHealthCheck.class.getSimpleName());
+            return HealthCheckResponse.up(ManualBreakHealthCheck.class.getSimpleName());
         }
     }
 }
