@@ -27,12 +27,17 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
+import com.kumuluz.ee.logs.cdi.Log;
 
 import si.fri.rso.domen2.deliveryman.services.beans.DeliverymanMetadataBean;
 import si.fri.rso.domen2.deliveryman.lib.DeliverymanMetadata;
 import si.fri.rso.domen2.deliveryman.lib.DeliverymanMetadataValidator;
 
+@Log
 @ApplicationScoped
+@Tag(name = "Deliveryman Metadata", description = "Get, add, edit, and delete the Deliveryman metadata.")
 @Path("/deliveryman")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -47,7 +52,7 @@ public class DeliverymanMetadataResource {
     protected UriInfo uriInfo;
 
 
-    @Operation(description = "Get all Deliveryman metadata", summary = "Get all metadata")
+    @Operation(summary = "Get all metadata", description = "Get all Deliveryman metadata")
     @APIResponses({
         @APIResponse(responseCode = "200",
             description = "List of Deliveryman metadata",
@@ -56,10 +61,12 @@ public class DeliverymanMetadataResource {
         )})
     @GET
     public Response getDeliverymanMetadata() {
-        LOG.info(uriInfo.getRequestUri().getQuery());
+        this.LOG.info("GET "+uriInfo.getRequestUri().toString());
         List<DeliverymanMetadata> listDm = dmb.getDeliverymanMetadataFilter(uriInfo);
         // List<DeliverymanMetadata> listDm = dmb.getDeliverymanMetadata();
-        return Response.status(Response.Status.OK).entity(listDm).build();
+        return Response.status(Response.Status.OK)
+            .header("X-Total-Count", listDm.size())
+            .entity(listDm).build();
     }
 
 
@@ -75,6 +82,8 @@ public class DeliverymanMetadataResource {
     public Response getDeliverymanMetadata(
         @Parameter(description = "Deliveryman metadata ID.", required = true)
         @PathParam("deliverymanId") Integer deliverymanId) {
+        
+        this.LOG.info("GET "+uriInfo.getRequestUri().toString());
 
         DeliverymanMetadata dm = dmb.getDeliveryMetadata(deliverymanId);
         if(dm == null) {
@@ -86,7 +95,9 @@ public class DeliverymanMetadataResource {
 
     @Operation(description = "Add Deliveryman metadata.", summary = "Add metadata")
     @APIResponses({
-        @APIResponse(responseCode = "201", description = "Metadata successfully added."),
+        @APIResponse(responseCode = "201",
+        description = "Metadata successfully added.",
+        content = @Content(schema = @Schema(implementation = DeliverymanMetadata.class))),
         @APIResponse(responseCode = "406", description = "Validation error.")
     })
     @POST
@@ -96,7 +107,7 @@ public class DeliverymanMetadataResource {
             content = @Content(schema = @Schema(implementation = DeliverymanMetadata.class)))
         DeliverymanMetadata dm) {
 
-        // this.LOG.info("createDeliverymanMetadata");
+        this.LOG.info("POST "+uriInfo.getRequestUri().toString());
 
         if(!DeliverymanMetadataValidator.isValid(dm)) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
@@ -110,8 +121,9 @@ public class DeliverymanMetadataResource {
 
     @Operation(description = "Update Deliveryman metadata.", summary = "Update metadata")
     @APIResponses({
-        @APIResponse(responseCode = "202", description = "Metadata successfully updated."),
-        @APIResponse(responseCode = "304", description = "Metadata not modified."),
+        @APIResponse(responseCode = "200",
+        description = "Metadata successfully updated.",
+        content = @Content(schema = @Schema(implementation = DeliverymanMetadata.class))),
         @APIResponse(responseCode = "404", description = "Metadata not found."),
     })
     @PUT
@@ -124,13 +136,15 @@ public class DeliverymanMetadataResource {
             required = true,
             content = @Content(schema = @Schema(implementation = DeliverymanMetadata.class)))
             DeliverymanMetadata dm) {
+        
+        this.LOG.info("PUT "+uriInfo.getRequestUri().toString());
 
         dm = dmb.putDeliverymanMetadata(deliverymanId, dm);
 
         if(dm == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.status(Response.Status.ACCEPTED).build();
+        return Response.status(Response.Status.OK).entity(dm).build();
     }
 
 
@@ -145,6 +159,8 @@ public class DeliverymanMetadataResource {
         @Parameter(description = "Metadata ID.", required = true)
         @PathParam("deliverymanId")
             Integer deliverymanId) {
+        
+        this.LOG.info("DELETE "+uriInfo.getRequestUri().toString());
 
         boolean deleted = dmb.deleteDeliverymanMetadata(deliverymanId);
 

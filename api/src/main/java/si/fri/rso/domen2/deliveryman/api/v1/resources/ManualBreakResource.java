@@ -9,12 +9,16 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import si.fri.rso.domen2.deliveryman.services.config.RestProperties;
 
 @ApplicationScoped
+@Tag(name = "Manual operations", description = "Set certain parameters manually.")
 @Path("/manual")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -34,13 +38,13 @@ public class ManualBreakResource {
     @Path("break")
     public Response makeUnhealthy() {
         rp.setBroken(true);
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity("{isBroken: true}").build();
     }
 
     @POST
     @Path("unbreak")
     public Response makeHealthy() {
         rp.setBroken(false);
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.OK).entity("{isBroken: false}").build();
     }
 }

@@ -15,14 +15,14 @@ docker inspect pg-deliveryman
 
 Run image on the same network
 ```bash
-docker run --name deliveryman -p 8080:8080 --network rso-deliveryman -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://pg-deliveryman:5432/deliveryman-metadata dmohorcic/microservice-deliveryman:1.0.0-SNAPSHOT
+docker run --name deliveryman -p 8080:8080 --network rso-deliveryman -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://pg-deliveryman:5432/deliveryman-metadata dmohorcic/microservice-deliveryman:1.2.0-SNAPSHOT
 ```
 
 ## Build and run commands
 ```bash
 mvn clean package
 cd api/target
-java -jar deliveryman-api-1.0.0-SNAPSHOT.jar
+java -jar deliveryman-api-1.2.0-SNAPSHOT.jar
 ```
 Available at: localhost:8080/v1/deliveryman
 
@@ -30,13 +30,19 @@ Available at: localhost:8080/v1/deliveryman
 
 Deploy to Kubernetes
 ```bash
-kubectl create -f k8s/deliveryman-deployment.yaml
 kubectl apply -f k8s/deliveryman-deployment.yaml
 ```
 
 Update secrets (requires k8s/secrets.yaml file)
 ```bash
 kubectl apply -f k8s/secrets.yaml
+```
+
+Use NGINX ingress controller:
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
+
+kubectl apply -f k8s/ingress.yaml
 ```
 
 Zunanji api:

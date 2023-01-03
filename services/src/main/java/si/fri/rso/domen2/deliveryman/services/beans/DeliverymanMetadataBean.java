@@ -8,12 +8,13 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.UriInfo;
+
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import com.kumuluz.ee.rest.utils.QueryStringDefaults;
 
 import si.fri.rso.domen2.deliveryman.lib.DeliverymanMetadata;
 import si.fri.rso.domen2.deliveryman.models.entities.DeliverymanMetadataEntity;
@@ -27,20 +28,20 @@ public class DeliverymanMetadataBean {
     @Inject
     private EntityManager em;
 
-
     public List<DeliverymanMetadata> getDeliverymanMetadata() {
         TypedQuery<DeliverymanMetadataEntity> query = em.createNamedQuery("DeliverymanMetadataEntity.getAll", DeliverymanMetadataEntity.class);
         List<DeliverymanMetadataEntity> rl = query.getResultList();
         return rl.stream().map(DeliverymanMetadataConverter::toDto).collect(Collectors.toList());
     }
 
-
+    @Timed(name= "time-get-deliveryman")
     public List<DeliverymanMetadata> getDeliverymanMetadataFilter(UriInfo uriInfo) {
         QueryParameters qp = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0).build();
         return JPAUtils.queryEntities(em, DeliverymanMetadataEntity.class, qp).stream().map(DeliverymanMetadataConverter::toDto).collect(Collectors.toList());
     }
 
 
+    @Metered(name = "get-deliveryman")
     public DeliverymanMetadata getDeliveryMetadata(Integer id) {
         DeliverymanMetadataEntity dme = em.find(DeliverymanMetadataEntity.class, id);
         if(dme == null) {
@@ -51,7 +52,7 @@ public class DeliverymanMetadataBean {
         return dm;
     }
 
-
+    @Metered(name = "post-deliveryman")
     public DeliverymanMetadata createDeliverymanMetadata(DeliverymanMetadata dm) {
         DeliverymanMetadataEntity dme = DeliverymanMetadataConverter.toEntity(dm);
         try {
@@ -69,6 +70,7 @@ public class DeliverymanMetadataBean {
     }
 
 
+    @Metered(name = "put-deliveryman")
     public DeliverymanMetadata putDeliverymanMetadata(Integer id, DeliverymanMetadata dm) {
         DeliverymanMetadataEntity dme = em.find(DeliverymanMetadataEntity.class, id);
         if(dme == null) {
@@ -87,6 +89,7 @@ public class DeliverymanMetadataBean {
     }
 
 
+    @Metered(name = "delete-deliveryman")
     public boolean deleteDeliverymanMetadata(Integer id) {
         DeliverymanMetadataEntity dme = em.find(DeliverymanMetadataEntity.class, id);
         if(dme != null) {

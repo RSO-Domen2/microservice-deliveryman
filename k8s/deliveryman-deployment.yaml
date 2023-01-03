@@ -56,7 +56,7 @@ spec:
   # ClusterIP for ms that call each other -> available only within cluster
   # LoadBalancer for public IP
   # LoadPort
-  type: LoadBalancer
+  type: ClusterIP
   ports:
       # this is outside port, we map server:port (server is in Deployment)
     - port: 8080
