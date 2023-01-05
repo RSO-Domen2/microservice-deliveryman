@@ -1,5 +1,6 @@
 package si.fri.rso.domen2.deliveryman.api.v1.resources;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -110,6 +111,7 @@ public class DeliverymanMetadataResource {
         this.LOG.info("POST "+uriInfo.getRequestUri().toString());
 
         if(!DeliverymanMetadataValidator.isValid(dm)) {
+            dm.setCreated(Instant.now());
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         else {
@@ -138,7 +140,8 @@ public class DeliverymanMetadataResource {
             DeliverymanMetadata dm) {
         
         this.LOG.info("PUT "+uriInfo.getRequestUri().toString());
-
+        
+        dm.setCreated(Instant.now());
         dm = dmb.putDeliverymanMetadata(deliverymanId, dm);
 
         if(dm == null) {

@@ -14,11 +14,13 @@ spec:
         app: deliveryman
     spec:
       containers:
-        - image: dmohorcic/microservice-deliveryman:1.1.0-SNAPSHOT
+        - image: dmohorcic/microservice-deliveryman:1.2.0-SNAPSHOT
           name: deliveryman
           env:
               # from api/resources/config.yaml
               # kumuluzee -> datasources -> 0th element -> connection-url
+            - name: KUMULUZEE_ENV_NAME
+              value: prod
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
               value: jdbc:postgresql://mouse.db.elephantsql.com:5432/lyjcsikn
             - name: KUMULUZEE_DATASOURCES0_USERNAME
@@ -30,18 +32,18 @@ spec:
                   key: password
           ports:
             - containerPort: 8080
-              name: server
+              name: deliveryman-server
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /health/live
-              port: server
+              port: deliveryman-server
             initialDelaySeconds: 20
             periodSeconds: 3
           readinessProbe:
             httpGet:
               path: /health/ready
-              port: server
+              port: deliveryman-server
             initialDelaySeconds: 20
             periodSeconds: 3
 
@@ -51,7 +53,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: deliveryman # can be random
+  name: deliveryman-service # can be random
 spec:
   # ClusterIP for ms that call each other -> available only within cluster
   # LoadBalancer for public IP
@@ -61,6 +63,6 @@ spec:
       # this is outside port, we map server:port (server is in Deployment)
     - port: 8080
       protocol: TCP
-      targetPort: server
+      targetPort: deliveryman-server
   selector:
     app: deliveryman # select pod

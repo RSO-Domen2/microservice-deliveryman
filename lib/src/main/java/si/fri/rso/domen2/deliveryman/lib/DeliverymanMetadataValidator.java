@@ -10,7 +10,7 @@ public class DeliverymanMetadataValidator {
             vehicle != null && (
                 vehicle.equals("car") ||
                 vehicle.equals("bike") ||
-                vehicle.equals("none")
+                vehicle.equals("foot")
                 ) &&
             dm.getLat() != null && dm.getLng() != null
         );

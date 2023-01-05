@@ -34,7 +34,8 @@ public class DeliverymanMetadataBean {
         return rl.stream().map(DeliverymanMetadataConverter::toDto).collect(Collectors.toList());
     }
 
-    @Timed(name= "time-get-deliveryman")
+    @Timed(name= "time-get-deliveryman-all")
+    @Metered(name = "get-deliveryman-all")
     public List<DeliverymanMetadata> getDeliverymanMetadataFilter(UriInfo uriInfo) {
         QueryParameters qp = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0).build();
         return JPAUtils.queryEntities(em, DeliverymanMetadataEntity.class, qp).stream().map(DeliverymanMetadataConverter::toDto).collect(Collectors.toList());

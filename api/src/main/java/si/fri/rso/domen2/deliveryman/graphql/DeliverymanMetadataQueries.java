@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import com.kumuluz.ee.graphql.annotations.GraphQLClass;
 import com.kumuluz.ee.graphql.classes.Filter;
 import com.kumuluz.ee.graphql.classes.Pagination;
-import com.kumuluz.ee.graphql.classes.PaginationWrapper;
 import com.kumuluz.ee.graphql.classes.Sort;
 import com.kumuluz.ee.graphql.utils.GraphQLUtils;
 import com.kumuluz.ee.rest.utils.StreamUtils;
@@ -26,12 +25,11 @@ public class DeliverymanMetadataQueries {
     private DeliverymanMetadataBean dmb;
 
     @GraphQLQuery
-    public List<DeliverymanMetadata> allDeliverymanMetadata( //PaginationWrapper<DeliverymanMetadata>
+    public List<DeliverymanMetadata> allDeliverymanMetadata(
         @GraphQLArgument(name="pagination") Pagination pagination,
         @GraphQLArgument(name="sort") Sort sort,
         @GraphQLArgument(name="filter") Filter filter
     ) {
-        //return GraphQLUtils.process(dmb.getDeliverymanMetadata(), pagination, sort, filter);
         return StreamUtils.queryEntities(dmb.getDeliverymanMetadata(), GraphQLUtils.queryParameters(pagination, sort, filter));
     }
 
