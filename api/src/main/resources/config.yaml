@@ -2,7 +2,7 @@ kumuluzee:
   name: deliveryman-service
   env:
     name: dev
-  version: 1.0.0
+  version: 1.2.0
   server:
     base-url: http://localhost:8080
     http:

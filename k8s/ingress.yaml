@@ -15,6 +15,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: deliveryman
+                name: deliveryman-service
+                port:
+                  number: 8080
+          - path: /order(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: order-service
                 port:
                   number: 8080
