@@ -111,10 +111,9 @@ public class DeliverymanMetadataResource {
         this.LOG.info("POST "+uriInfo.getRequestUri().toString());
 
         if(!DeliverymanMetadataValidator.isValid(dm)) {
-            dm.setCreated(Instant.now());
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
-        }
-        else {
+        } else {
+            dm.setCreated(Instant.now());
             dm = dmb.createDeliverymanMetadata(dm);
         }
         return Response.status(Response.Status.CREATED).entity(dm).build();

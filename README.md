@@ -15,14 +15,14 @@ docker inspect pg-deliveryman
 
 Run image on the same network
 ```bash
-docker run --name deliveryman -p 8080:8080 --network rso-deliveryman -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://pg-deliveryman:5432/deliveryman-metadata dmohorcic/microservice-deliveryman:1.2.0-SNAPSHOT
+docker run --name deliveryman -p 8080:8080 --network rso-deliveryman -e KUMULUZEE_DATASOURCES0_CONNECTIONURL=jdbc:postgresql://pg-deliveryman:5432/deliveryman-metadata dmohorcic/microservice-deliveryman:1.2.1-SNAPSHOT
 ```
 
 ## Build and run commands
 ```bash
 mvn clean package
 cd api/target
-java -jar deliveryman-api-1.2.0-SNAPSHOT.jar
+java -jar deliveryman-api-1.2.1-SNAPSHOT.jar
 ```
 Available at: localhost:8080/v1/deliveryman
 

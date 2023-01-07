@@ -37,6 +37,7 @@ public class DeliverymanMetadataBean {
     @Timed(name= "time-get-deliveryman-all")
     @Metered(name = "get-deliveryman-all")
     public List<DeliverymanMetadata> getDeliverymanMetadataFilter(UriInfo uriInfo) {
+        this.LOG.info("Function call getDeliverymanMetadataFilter");
         QueryParameters qp = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0).build();
         return JPAUtils.queryEntities(em, DeliverymanMetadataEntity.class, qp).stream().map(DeliverymanMetadataConverter::toDto).collect(Collectors.toList());
     }
@@ -46,9 +47,11 @@ public class DeliverymanMetadataBean {
     public DeliverymanMetadata getDeliveryMetadata(Integer id) {
         DeliverymanMetadataEntity dme = em.find(DeliverymanMetadataEntity.class, id);
         if(dme == null) {
+            this.LOG.warning("Function call getDeliveryMetadata ID "+id.toString()+" FAILED");
             // throw new NotFoundException();
             return null;
         }
+        this.LOG.info("Function call getDeliveryMetadata ID "+id.toString());
         DeliverymanMetadata dm = DeliverymanMetadataConverter.toDto(dme);
         return dm;
     }
@@ -61,12 +64,14 @@ public class DeliverymanMetadataBean {
             em.persist(dme);
             commitTx();
         } catch(Exception e) {
+            this.LOG.warning("Function call createDeliverymanMetadata FAILED");
             rollbackTx();
         }
 
         if(dme.getId() == null) {
             throw new RuntimeException("Entity was not persisted");
         }
+        this.LOG.info("Function call createDeliverymanMetadata");
         return DeliverymanMetadataConverter.toDto(dme);
     }
 
@@ -84,8 +89,10 @@ public class DeliverymanMetadataBean {
             updatedDme = em.merge(updatedDme);
             commitTx();
         } catch(Exception e) {
+            this.LOG.warning("Function call putDeliverymanMetadata FAILED");
             rollbackTx();
         }
+        this.LOG.info("Function call putDeliverymanMetadata");
         return DeliverymanMetadataConverter.toDto(updatedDme);
     }
 
@@ -99,8 +106,11 @@ public class DeliverymanMetadataBean {
                 em.remove(dme);
                 commitTx();
             } catch(Exception e) {
+                this.LOG.warning("Function call deleteDeliverymanMetadata FAILED");
                 rollbackTx();
+                return false;
             }
+            this.LOG.info("Function call deleteDeliverymanMetadata");
             return true;
         } else {
             return false;
