@@ -25,3 +25,17 @@ spec:
                 name: order-service
                 port:
                   number: 8080
+          - path: /restaurant(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: restaurant-microservice
+                port:
+                  number: 8080
+          - path: /client(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-service
+                port:
+                  number: 8080
